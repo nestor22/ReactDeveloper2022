@@ -8,31 +8,29 @@ class App extends Component {
     super();
 
     this.state = {
-      name: { firstName: "Nestor", lastName: "Gonzalez" },
-      company: "GUA",
+      monsters: [
+        {
+          id: 1,
+          name: "linda",
+        },
+        {
+          id:2, 
+          name: "Frank",
+        },
+        {
+          id:3,
+          name: "Jacky",
+        },
+      ],
     };
   }
 
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Hi { this.state.name.firstName } { this.state.name.lastName }  and live in {this.state.company}
-          </p>
-          <button
-            onClick={() => {
-              this.setState(()=>{ // se puede enviar state, props his.setState((state, props)
-                return{ name: { firstName: "Pablo", lastName: "Lopez" } }
-              }, ()=>{// este es el callback que se ejecuta inmeditamente despues con la informacion de state de arriba
-                console.log(this.state);
-              });
-            }}
-          >
-            change name
-          </button>
-        </header>
+        {this.state.monsters.map((monster) => (
+          <h1 key={monster.id}>{monster.name}</h1>
+        ))}
       </div>
     );
   }
