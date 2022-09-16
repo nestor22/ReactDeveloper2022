@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
+  signInAuthUserWithEmailAndPassword,
   signInWithGooblePopup,
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
@@ -34,22 +35,21 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
-      await createUserDocumentFromAuth(user);
+      
+
+      const response = await signInAuthUserWithEmailAndPassword(email, password);
+
       resetFormFields();
     } catch (error) {
-      if (error.code === "auth/email-already-in-use") {
-        alert("Cannot create user, email already in use");
+      if (error.code === "auth/wrong-password"  || error.code === "auth/user-not-found") {
+        alert("Cannot loging user, incorrect user or password");
       }
       console.error("user creation encontered a error ", error);
     }
   };
 
   return (
-    <div className="sign-up-containser">
+    <div className="sign-up-container">
       <h2>Already have an account? </h2>
       <span>Sign up with your email and password</span>
 
@@ -72,12 +72,13 @@ const SignInForm = () => {
           name="password"
           value={password}
         />
+        <div className="buttons-container">
+          <Button type="submit">Sign up </Button>
 
-        <Button type="submit">Sign up </Button>
-
-        <Button type="button" onClick={logGoogleUser}>
-          Sing In With Google Acount
-        </Button>
+          <Button buttonType="google" type="button" onClick={logGoogleUser}>
+            Sing In With Google Acount
+          </Button>
+        </div>
       </form>
     </div>
   );
