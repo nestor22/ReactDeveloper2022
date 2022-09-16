@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -19,11 +19,8 @@ const SignInForm = () => {
   const [formFiels, setFormFiels] = useState(DefaultFormFiels);
   const { email, password } = formFiels;
 
-  const { setCurrentUser } = userContext(UserContext)
-
   const logGoogleUser = async () => {
-    const { user } = await signInWithGooblePopup();
-    const userDocRef = createUserDocumentFromAuth(user);
+    await signInWithGooblePopup();
   };
 
   const handleChange = (event) => {
@@ -38,14 +35,17 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      
-
-      const {user} = await signInAuthUserWithEmailAndPassword(email, password);
-      setCurrentUser(user);
+      const { user } = await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
 
       resetFormFields();
     } catch (error) {
-      if (error.code === "auth/wrong-password"  || error.code === "auth/user-not-found") {
+      if (
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/user-not-found"
+      ) {
         alert("Cannot loging user, incorrect user or password");
       }
       console.error("user creation encontered a error ", error);
