@@ -15,9 +15,7 @@ const DefaultFormFiels = {
 
 const SignUpForm = () => {
   const [formFiels, setFormFiels] = useState(DefaultFormFiels);
-
   const { displayName, email, password, confirmPassword } = formFiels;
-
   const handleChange = (event) => {
     const { value, name } = event.target;
     setFormFiels({ ...formFiels, [name]: value });
@@ -28,7 +26,6 @@ const SignUpForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (password !== confirmPassword) {
       alert("password do not match");
       return;
@@ -91,8 +88,9 @@ const SignUpForm = () => {
           name="confirmPassword"
           value={confirmPassword}
         />
-
-        <Button type="submit">Sign up </Button>
+ 
+        <Button type="submit"> Sign up </Button>
+         
       </form>
     </div>
   );

@@ -50,7 +50,7 @@ const SignInForm = () => {
 
   return (
     <div className="sign-up-containser">
-      <h2>Don't have an account? </h2>
+      <h2>Already have an account? </h2>
       <span>Sign up with your email and password</span>
 
       <form onSubmit={handleSubmit}>
